@@ -52,7 +52,7 @@ type combined struct {
 }
 
 func (a *Client) AddAccountdata(account *combined) error {
-	url := fmt.Sprintf(baseURL + "/%s/account")
+	url := baseURL
 	fmt.Println(url)
 	acc, err := json.Marshal(account)
 	if err != nil {
@@ -77,14 +77,14 @@ func (a *Client) doRequest(req *http.Request) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	if 200 != resp.StatusCode {
-		return nil, fmt.Errorf("%s", body)
-	}
+	//if 200 != resp.StatusCode {
+	//	return nil, fmt.Errorf("%s", body)
+	//}
 	return body, nil
 }
 
 func (a *Client) GetAccount(id string) (*combined, error) {
-	url := fmt.Sprintf(baseURL, id)
+	url := fmt.Sprintf(baseURL + id)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
